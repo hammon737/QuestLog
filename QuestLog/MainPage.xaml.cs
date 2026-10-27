@@ -38,6 +38,7 @@ namespace QuestLog
         private void OnAddClicked(object sender, EventArgs e)
         {
             string reward = QuestReward.Text;
+
             if (int.TryParse(reward, out int result))
             {
             }
