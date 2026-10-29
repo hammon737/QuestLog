@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local ="clr-namespace:QuestLog"
              x:Class="QuestLog.MainPage"
              Title="Quest Log">
 
@@ -24,13 +25,9 @@
             <CollectionView x:Name="QuestView" ItemsSource="{Binding Quests}" ItemsUpdatingScrollMode="KeepLastItemInView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,Auto">
-                            <VerticalStackLayout Grid.Column="0">
-                                <Label Text="{Binding Title}" FontAttributes="Bold" />
-                                <Label Text="{Binding Giver}" FontSize="12" TextColor="Gray" />
-                            </VerticalStackLayout>
-                            <Label Grid.Column="1" Text="{Binding Reward, StringFormat='{0} gold'}" />
-                        </Grid>
+
+                        <local:NewContent1/>
+
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 

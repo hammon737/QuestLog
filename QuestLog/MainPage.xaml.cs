@@ -20,8 +20,8 @@ namespace QuestLog
             
             BindingContext = this;
 
-            Quests.Add(new Quest { Title = "Speak to the innkeeper", Giver = "Innkeeper", Reward = 50 });
-            Quests.Add(new Quest { Title = "Buy a lantern", Giver = "Innkeeper", Reward = 10 });
+            Load();
+
 
             if (Quests.Count > 0)
             {
@@ -54,6 +54,8 @@ namespace QuestLog
             if (next >= pool.Length)
                 next = 0;
             CountLabel.Text = $"{Quests.Count} Quests";
+
+            Save();
         }
 
         private void OnDeleteClicked(object sender, EventArgs e)
@@ -63,6 +65,30 @@ namespace QuestLog
                 int latest = Quests.Count - 1;
                 Quests.RemoveAt(latest);
                 CountLabel.Text = $"{Quests.Count} Quests";
+            }
+
+            Save();
+        }
+
+        string path = Path.Combine(FileSystem.AppDataDirectory,"questlog.json");
+
+        void Save()
+        {
+            string json = JsonSerializer.Serialize(Quests);
+            File.WriteAllText(path, json);
+        }
+
+        void Load()
+        {
+            if (!File.Exists(path))
+            {
+                return;
+            }
+            string json = File.ReadAllText(path);
+            List<Quest> saved = JsonSerializer.Deserialize<List<Quest>>(json);
+            foreach(Quest q in saved)
+            {
+                Quests.Add(q);
             }
 
         }
